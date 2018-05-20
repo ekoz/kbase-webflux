@@ -37,8 +37,8 @@ public class UserController {
 	}
 	
 	@PostMapping("/save")
-	public Mono<Void> save(@RequestBody Publisher<User> userStream){
-		return userRepository.insert(userStream).then();
+	public Flux<User> save(@RequestBody Publisher<User> userStream){
+		return userRepository.insert(userStream);
 	}
 	
 	@GetMapping("/get")
