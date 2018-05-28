@@ -3,7 +3,6 @@
  */
 package com.eastrobot.kbasewebflux.repository;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +14,6 @@ import com.eastrobot.kbasewebflux.domain.User;
  * @version 1.0
  */
 @Repository
-@Primary
 public interface UserRepository extends ReactiveMongoRepository<User, String>{
 
 }
