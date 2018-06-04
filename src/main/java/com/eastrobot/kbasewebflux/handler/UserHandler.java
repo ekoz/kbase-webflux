@@ -3,10 +3,10 @@
  */
 package com.eastrobot.kbasewebflux.handler;
 
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -17,7 +17,6 @@ import reactor.core.publisher.Mono;
 
 import com.eastrobot.kbasewebflux.domain.User;
 import com.eastrobot.kbasewebflux.repository.UserRepository;
-import com.mongodb.DuplicateKeyException;
 
 /**
  * @author <a href="mailto:eko.z@outlook.com">eko.zhan</a>
@@ -29,7 +28,7 @@ import com.mongodb.DuplicateKeyException;
 public class UserHandler {
 	
 	@Autowired
-	private UserRepository userRepository;
+	UserRepository userRepository;
 
 	/**
 	 * 获取用户清单
@@ -49,10 +48,9 @@ public class UserHandler {
 	 * @return
 	 */
 	public Mono<ServerResponse> save(ServerRequest request) {
-		System.out.println("开始保存");
+		log.debug("开始保存");
 		Flux<User> userStream = request.bodyToFlux(User.class);
-		userRepository.insert(userStream);
-		return ServerResponse.ok().body(userStream, User.class);
+		return ServerResponse.ok().body(userRepository.insert(userStream), User.class);
 	}
 
 	/**
@@ -62,11 +60,9 @@ public class UserHandler {
 	 * @return
 	 */
 	public Mono<ServerResponse> delete(ServerRequest request) {
-		System.out.println("开始删除");
 		String id = request.pathVariable("id");
-		System.out.println(id);
-		userRepository.deleteById(id);
-		return ServerResponse.ok().build();
+		log.debug("开始删除 [" + id + "]");
+		return ServerResponse.ok().build(userRepository.deleteById(id));
 	}
 	
 	/**
