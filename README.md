@@ -2,6 +2,6 @@
 	2.0.2.RELEASE
 
 ### Controller
-[UserController](tree/v1.0.1)
+[UserController](../../tree/v1.0.1)
 
 ### RouterFunction && HandlerFunction
